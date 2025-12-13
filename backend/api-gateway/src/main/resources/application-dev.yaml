@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+          - id: user-service
+            uri: ${USER_SERVICE_URI}
+            predicates:
+              - Path=/user-service/**
+            filters:
+              - AddRequestHeader=X-Gateway, GatewayActive
+          - id: cart-service
+            uri: ${CART_SERVICE_URI}
+            predicates:
+              - Path=/cart-service/**
+            filters:
+              - AddRequestHeader=X-Gateway, GatewayActive
+          - id: payment-service
+            uri: ${PAYMENT_SERVICE_URI}
+            predicates:
+              - Path=/payment-service/**
+            filters:
+              - AddRequestHeader=X-Gateway, GatewayActive
+          - id: product-service
+            uri: ${PRODUCT_SERVICE_URI}
+            predicates:
+              - Path=/product-service/**
+            filters:
+              - AddRequestHeader=X-Gateway, GatewayActive
+          - id: storage-service
+            uri: ${STORAGE_SERVICE_URI}
+            predicates:
+              - Path=/storage-service/**
+            filters:
+              - AddRequestHeader=X-Gateway, GatewayActive
+  main:
+    web-application-type: reactive
+server:
+  port: 9000
+  forward-headers-strategy: framework
