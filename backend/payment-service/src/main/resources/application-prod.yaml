@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: payment-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8084
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+  service:
+    yookassa:
+      url: ${FEIGN_SERVICE_YOOKASSA}
+      shop-id: 124215
+      secret: 1asdf34faa3r
