@@ -76,6 +76,7 @@ public class ProductService {
                 .sale(0.0f)
                 .title(dto.title())
                 .description(dto.description())
+                .discontinued(false)
                 .price(dto.price())
                 .photos(filenames)
                 .created_at(LocalDateTime.now())
@@ -142,9 +143,6 @@ public class ProductService {
 
         if(dto.description() != null)
             product.setDescription(dto.description());
-
-        if(dto.photos() != null)
-            product.setPhotos(dto.photos());
 
         if(dto.price() != null)
             product.setPrice(dto.price());

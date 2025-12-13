@@ -21,6 +21,7 @@ public class User {
 
     @NotBlank
     @Size(min = 6)
+    @Column(unique = true)
     private String username;
 
     @NotBlank

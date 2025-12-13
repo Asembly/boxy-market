@@ -56,7 +56,7 @@ public class CartService {
     }
 
 
-    public ResponseEntity<CartResponse> addOneProduct(String id, String product_id){
+    public ResponseEntity<CartResponse> addProduct(String id, String product_id){
 
         //Find product by id, check empty or not
         var product = productClient.getProductById(product_id).getBody();

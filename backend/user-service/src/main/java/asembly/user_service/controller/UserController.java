@@ -18,25 +18,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<UserResponse> create(@RequestBody UserCreateRequest dto) {
         return userService.create(dto);
     }
 
     @GetMapping("/get/username")
-    public ResponseEntity<UserResponse> findByUsername(@RequestParam String username)
+    public ResponseEntity<UserResponse> getByUsername(@RequestParam String username)
     {
         return userService.findByUsername(username);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<User>> findAll()
+    public ResponseEntity<List<User>> getAll()
     {
         return userService.findAll();
     }
 
     @GetMapping("/get")
-    public ResponseEntity<?> findById(@RequestParam String id)
+    public ResponseEntity<?> getById(@RequestParam String id)
     {
         return userService.findById(id);
     }

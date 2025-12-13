@@ -31,7 +31,7 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<CartResponse> addOneProduct(@RequestParam String id, @RequestParam String product_id) {
-        return cartService.addOneProduct(id, product_id);
+    public ResponseEntity<CartResponse> addProduct(@RequestParam String id, @RequestParam String product_id) {
+        return cartService.addProduct(id, product_id);
     }
 }

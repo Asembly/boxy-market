@@ -13,6 +13,7 @@ public record ProductResponse(
         Float sale,
         String title,
         String description,
+        Boolean discontinued,
         List<String> photos,
         LocalDateTime created_at
 ) {
