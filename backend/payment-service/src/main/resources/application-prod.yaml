@@ -4,6 +4,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  redis:
+    host: ${HOST_REDIS}
+    port: ${PORT_REDIS}
 server:
   port: 8084
 feign:
@@ -16,5 +19,5 @@ feign:
   service:
     yookassa:
       url: ${FEIGN_SERVICE_YOOKASSA}
-      shop-id: 124215
-      secret: 1asdf34faa3r
+      shop-id: ${YOOKASSA_SHOP_ID}
+      secret: ${YOOKASSA_SECRET}
