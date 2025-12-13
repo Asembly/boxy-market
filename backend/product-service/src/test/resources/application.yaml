@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: product-service
+server:
+  port: 8081
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+  service:
+    storage-service: ${FEIGN_SERVICE_STORAGE}
