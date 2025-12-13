@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: storage-service
+server:
+  port: 8108
+static:
+  folder:
+    path: storage-service/src/main/resources/static

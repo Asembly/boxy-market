@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: storage-service
+server:
+  port: 8108
+  hostname: localhost
+static:
+  folder:
+    path: storage-service/uploads/
