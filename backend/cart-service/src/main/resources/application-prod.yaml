@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: cart-service
+  kafka:
+    bootstrap-servers: kafka:9090
+server:
+  port: 8000
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+  service:
+    product-service: ${FEIGN_SERVICE_PRODUCT}

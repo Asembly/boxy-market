@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: cart-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5433/db
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    username: ${SPRING_DATASOURCE_USERNAME}
+  kafka:
+    bootstrap-servers: localhost:9092
+server:
+  port: 8000
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+  service:
+    product-service: ${FEIGN_SERVICE_PRODUCT}
