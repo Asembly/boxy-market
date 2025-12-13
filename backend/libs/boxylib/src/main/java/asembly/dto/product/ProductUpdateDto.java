@@ -1,0 +1,15 @@
+package asembly.dto.product;
+
+import lombok.Builder;
+
+import java.util.List;
+
+@Builder
+public record ProductUpdateDto(
+        Integer price,
+        Float sale,
+        String title,
+        String description,
+        Boolean discontinued,
+        List<String> photos
+) {}
