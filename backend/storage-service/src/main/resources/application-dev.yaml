@@ -6,4 +6,4 @@ server:
   hostname: localhost
 static:
   folder:
-    path: storage-service/uploads/
+    path: ${DEFAULT_STATIC_PATH}
