@@ -1,4 +1,4 @@
-package asembly.user_service;
+package asembly.storage_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
