@@ -1,9 +1,9 @@
-package asembly.storage_service.service;
+package asembly.user_service.service;
 
 import asembly.exception.storage.StorageException;
 import asembly.exception.storage.StorageFileNotFoundException;
 import asembly.exception.storage.StorageNotValidType;
-import asembly.storage_service.config.StorageConfig;
+import asembly.user_service.config.StorageConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

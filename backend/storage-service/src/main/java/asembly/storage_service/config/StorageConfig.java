@@ -1,4 +1,4 @@
-package asembly.storage_service.config;
+package asembly.user_service.config;
 
 import asembly.exception.storage.StorageException;
 import lombok.Getter;

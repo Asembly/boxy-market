@@ -1,6 +1,6 @@
-package asembly.storage_service.controller;
+package asembly.user_service.controller;
 
-import asembly.storage_service.service.StorageService;
+import asembly.user_service.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
