@@ -1,5 +1,8 @@
 package asembly.dto.user;
 
-import java.time.LocalDate;
+import lombok.Builder;
 
-public record UserResponse(String id, String username, String password, LocalDate created_at){}
+import java.time.LocalDateTime;
+
+@Builder
+public record UserResponse(String id, String username, String password, LocalDateTime created_at){}
