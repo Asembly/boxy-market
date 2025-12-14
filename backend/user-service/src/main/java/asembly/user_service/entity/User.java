@@ -1,16 +1,19 @@
 package asembly.user_service.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,16 +21,8 @@ public class User {
 
     @Id
     private String id;
-
-    @NotBlank
-    @Size(min = 6)
     @Column(unique = true)
     private String username;
-
-    @NotBlank
-    @Size(min = 8)
     private String password;
-
-    @Temporal(TemporalType.DATE)
-    private LocalDate created_at;
+    private LocalDateTime created_at;
 }

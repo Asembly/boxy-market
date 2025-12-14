@@ -11,12 +11,13 @@ import asembly.user_service.kafka.ProducerUser;
 import asembly.user_service.mapper.UserMapper;
 import asembly.user_service.repository.UserRepository;
 import asembly.utils.GeneratorId;
+import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -30,27 +31,26 @@ public class UserService {
 
     private final UserMapper userMapper = UserMapper.INSTANCE;
 
-    public ResponseEntity<List<User>> findAll()
+    public ResponseEntity<List<UserResponse>> getUsers()
     {
         var users = userRepository.findAll();
-        return ResponseEntity.ok(users);
+
+        var usersResponse = users.stream().map(userMapper::userToUserResponse).toList();
+        return ResponseEntity.ok(usersResponse);
     }
 
-    public ResponseEntity<?> findById(String id)
+    public ResponseEntity<UserResponse> getUserById(String id)
     {
         var user = userRepository.findById(id).orElseThrow(
                 UserNotFoundException::new
         );
-        return ResponseEntity.ok(user);
+
+        var userResponse = userMapper.userToUserResponse(user);
+
+        return ResponseEntity.ok(userResponse);
     }
 
-    public ResponseEntity<String> deleteAll()
-    {
-        userRepository.deleteAll();
-        return ResponseEntity.ok("Users deleted");
-    }
-
-    public ResponseEntity<User> delete(String id)
+    public ResponseEntity<UserResponse> deleteUser(String id)
     {
         var user = userRepository.findById(id).orElseThrow(
                 UserNotFoundException::new
@@ -62,10 +62,13 @@ public class UserService {
         );
 
         userRepository.delete(user);
-        return ResponseEntity.ok(user);
+
+        var userResponse = userMapper.userToUserResponse(user);
+
+        return ResponseEntity.ok(userResponse);
     }
 
-    public ResponseEntity<UserResponse> findByUsername(String username)
+    public ResponseEntity<UserResponse> getUserByUsername(String username)
     {
         var user = userRepository.findByUsername(username).orElseThrow(
                 UserNotFoundException::new
@@ -73,41 +76,37 @@ public class UserService {
         return ResponseEntity.ok(userMapper.userToUserResponse(user));
     }
 
-//    public ResponseEntity<List<UserResponse>> findAllByIds(UserIdsRequest dto)
-//    {
-//        var users = userRepository.findAllById(dto.ids());
-//        if(users.isEmpty())
-//            throw new UserNotFoundException("Users not found in database");
-//
-//        var usersResponse = userMapper.usersToUserResponse(users);
-//
-//        log.info("All users: {}", usersResponse);
-//
-//        return ResponseEntity.ok(usersResponse);
-//    }
-
-    public ResponseEntity<UserResponse> create(UserCreateRequest dto) {
+    public ResponseEntity<UserResponse> createUser(UserCreateRequest dto) {
 
         var optUser = userRepository.findByUsername(dto.username());
 
         if(optUser.isPresent())
-            throw new UserAlreadyExistException("User already exist in database.");
+            throw new UserAlreadyExistException("User already exist in database");
+
+        if(dto.username().isEmpty())
+            throw new ValidationException("Username is empty");
+
+        if(dto.password().isEmpty())
+            throw new ValidationException("Password is empty");
 
         var user = new User(
                 GeneratorId.generateId(),
                 dto.username(),
                 dto.password(),
-                LocalDate.now());
+                LocalDateTime.now());
 
         producerService.sendEvent(
                 UserEventType.USER_CREATED,
                 user.getId()
         );
 
-        return ResponseEntity.ok(userMapper.userToUserResponse(userRepository.save(user)));
+        var save = userRepository.save(user);
+        var userResponse = userMapper.userToUserResponse(save);
+
+        return ResponseEntity.ok(userResponse);
     }
 
-    public ResponseEntity<User> update(String id, UserUpdateRequest dto)
+    public ResponseEntity<UserResponse> updateUser(String id, UserUpdateRequest dto)
     {
         var user = userRepository.findById(id).orElseThrow();
 
@@ -122,8 +121,9 @@ public class UserService {
         if(!dto.password().isEmpty())
             user.setPassword(dto.password());
 
-        userRepository.save(user);
+        var save = userRepository.save(user);
+        var userResponse = userMapper.userToUserResponse(save);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userResponse);
     }
 }
