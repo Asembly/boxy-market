@@ -36,6 +36,12 @@ spring:
               - Path=/storage-service/**
             filters:
               - AddRequestHeader=X-Gateway, GatewayActive
+          - id: auth-service
+            uri: ${AUTH_SERVICE_URI}
+            predicates:
+              - Path=/auth-service/**
+            filters:
+              - AddRequestHeader=X-Gateway, GatewayActive
   main:
     web-application-type: reactive
 server:

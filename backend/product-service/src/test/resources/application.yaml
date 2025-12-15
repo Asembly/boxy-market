@@ -2,7 +2,7 @@ spring:
   application:
     name: product-service
 server:
-  port: 8081
+  port: 8083
 feign:
   client:
     config:
@@ -12,3 +12,4 @@ feign:
         loggerLevel: basic
   service:
     storage-service: http://localhost:8108/storage-service
+    user-service: http://localhost:8081/user-service

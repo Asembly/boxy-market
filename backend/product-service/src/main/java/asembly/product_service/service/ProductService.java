@@ -3,7 +3,10 @@ package asembly.product_service.service;
 import asembly.dto.product.ProductCreateDto;
 import asembly.dto.product.ProductResponse;
 import asembly.dto.product.ProductUpdateDto;
+import asembly.exception.product.ProductNotFoundException;
+import asembly.exception.user.UserNotFoundException;
 import asembly.product_service.client.StorageClient;
+import asembly.product_service.client.UserClient;
 import asembly.product_service.entity.Product;
 import asembly.product_service.mapper.ProductMapper;
 import asembly.product_service.repository.ProductRepository;
@@ -24,8 +27,12 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
     @Autowired
     private StorageClient storageClient;
+
+    @Autowired
+    private UserClient userClient;
 
     private final ProductMapper productMapper = ProductMapper.INSTANCE;
 
@@ -39,7 +46,7 @@ public class ProductService {
     public ResponseEntity<ProductResponse> getProductById(String id){
 
         var product = productRepository.findById(id).orElseThrow(
-                //todo UserNotFound::new
+                ProductNotFoundException::new
         );
 
         log.info("FindById Product:{}", product);
@@ -50,7 +57,7 @@ public class ProductService {
 
     public ResponseEntity<List<ProductResponse>> getProductsByUserId(String user_id){
         var products = productRepository.findByUserId(user_id).orElseThrow(
-                //todo UserNotFound::new
+                ProductNotFoundException::new
         );
 
         log.debug("FindByUserId Product:{}", products);
@@ -61,7 +68,10 @@ public class ProductService {
 
     public ResponseEntity<ProductResponse> createProduct(ProductCreateDto dto, MultipartFile[] images){
 
-        //todo проверка user_id т.е делать обращение к UserService через feign client
+        var user = userClient.getById(dto.user_id()).getBody();
+
+        if(user == null)
+            throw new UserNotFoundException();
 
         log.info("Files: {}", images.length);
 
@@ -96,7 +106,7 @@ public class ProductService {
     public ResponseEntity<ProductResponse> deleteProduct(String id){
 
         var product = productRepository.findById(id).orElseThrow(
-                //todo ProductNotFound::new
+                ProductNotFoundException::new
         );
 
         productRepository.delete(product);
@@ -109,7 +119,7 @@ public class ProductService {
     public ResponseEntity<List<String>> getProductPhotosUrl(String id)
     {
         var product = productRepository.findById(id).orElseThrow(
-                //todo ProductNotFound::new
+                ProductNotFoundException::new
         );
 
         log.info("Product: {}", product);
@@ -135,7 +145,7 @@ public class ProductService {
     public ResponseEntity<ProductResponse> updateProduct(ProductUpdateDto dto, String id){
 
         var product = productRepository.findById(id).orElseThrow(
-                //todo ProductNotFound::new
+                ProductNotFoundException::new
         );
 
         if(dto.title() != null)

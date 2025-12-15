@@ -1,7 +1,7 @@
-package asembly.user_service.mapper;
+package asembly.storage_service.mapper;
 
 import asembly.dto.user.UserResponse;
-import asembly.user_service.entity.User;
+import asembly.storage_service.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

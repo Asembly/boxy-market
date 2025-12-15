@@ -13,7 +13,7 @@ spring:
       max-file-size: 100MB
       max-request-size: 200MB
 server:
-  port: 8081
+  port: 8083
 feign:
   client:
     config:
@@ -23,3 +23,4 @@ feign:
         loggerLevel: basic
   service:
     storage-service: ${FEIGN_SERVICE_STORAGE}
+    user-service: ${FEIGN_SERVICE_USER}

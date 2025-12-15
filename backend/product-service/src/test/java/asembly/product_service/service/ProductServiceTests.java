@@ -2,7 +2,9 @@ package asembly.product_service.service;
 
 import asembly.dto.product.ProductCreateDto;
 import asembly.dto.product.ProductUpdateDto;
+import asembly.dto.user.UserResponse;
 import asembly.product_service.client.StorageClient;
+import asembly.product_service.client.UserClient;
 import asembly.product_service.entity.Product;
 import asembly.product_service.mapper.ProductMapper;
 import asembly.product_service.repository.ProductRepository;
@@ -36,6 +38,9 @@ public class ProductServiceTests {
     @Mock
     private StorageClient storageClient;
 
+    @Mock
+    private UserClient userClient;
+
     private Product product;
     private Product product2;
     private ProductCreateDto createDto;
@@ -46,9 +51,7 @@ public class ProductServiceTests {
     @BeforeEach
     public void setup()
     {
-
         productMapper = ProductMapper.INSTANCE;
-
 
         product2 = Product.builder()
                 .id("2")
@@ -64,10 +67,10 @@ public class ProductServiceTests {
 
         files = new MultipartFile[] {
                 new MockMultipartFile(
-                        "file1",                    // имя параметра (не важно для теста)
-                        "image1.jpg",               // original filename
-                        "image/jpeg",               // content type
-                        "fake image content 1".getBytes()  // содержимое
+                        "file1",
+                        "image1.jpg",
+                        "image/jpeg",
+                        "fake image content 1".getBytes()
                 ),
                 new MockMultipartFile(
                         "file2",
@@ -76,6 +79,13 @@ public class ProductServiceTests {
                         "fake image content 2".getBytes()
                 )
         };
+
+        userResponse1 = UserResponse.builder()
+                .id("1")
+                .username("Asembly")
+                .created_at(LocalDateTime.now())
+                .build()
+        ;
 
         product = Product.builder()
                 .id("1")
@@ -104,13 +114,12 @@ public class ProductServiceTests {
                 .price(1111)
                 .sale(11.11f)
                 .discontinued(true)
-                .photos(List.of("updated"))
                 .build();
 
     }
 
     @Test
-    public void ProductService_GetProductsByUserId_ReturnsProductResponseWithCurrentUserId()
+    public void productService_getProductsByUserId_returnsProductResponseWithCurrentUserId()
     {
         //Find by this id
         var user_id = "1";
@@ -127,7 +136,7 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void ProductService_UpdateProduct_ReturnUpdatedProductResponse()
+    public void productService_updateProduct_returnUpdatedProductResponse()
     {
         //Find by this id
         var product_id = "1";
@@ -151,11 +160,14 @@ public class ProductServiceTests {
     }
 
     @Test
-    public void ProductService_CreateProduct_ReturnsProductResponse()
+    public void productService_createProduct_returnsProductResponse()
     {
         //Files that send to feign client StorageService for uploading their
         Mockito.when(storageClient.uploadImageFile(Mockito.any(MultipartFile.class)))
                 .thenReturn(ResponseEntity.ok(files[1].getOriginalFilename()));
+
+        Mockito.when(userClient.getById(createDto.user_id()))
+                .thenReturn(ResponseEntity.ok(Mockito.any()));
 
         Mockito.when(productRepository.save(Mockito.any(Product.class))).thenReturn(product);
 

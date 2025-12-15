@@ -1,4 +1,4 @@
-package asembly.user_service.service;
+package asembly.storage_service.service;
 
 import asembly.dto.user.UserCreateRequest;
 import asembly.dto.user.UserResponse;
@@ -6,10 +6,10 @@ import asembly.dto.user.UserUpdateRequest;
 import asembly.event.types.UserEventType;
 import asembly.exception.user.UserAlreadyExistException;
 import asembly.exception.user.UserNotFoundException;
-import asembly.user_service.entity.User;
-import asembly.user_service.kafka.ProducerUser;
-import asembly.user_service.mapper.UserMapper;
-import asembly.user_service.repository.UserRepository;
+import asembly.storage_service.entity.User;
+import asembly.storage_service.kafka.ProducerUser;
+import asembly.storage_service.mapper.UserMapper;
+import asembly.storage_service.repository.UserRepository;
 import asembly.utils.GeneratorId;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
@@ -108,20 +108,29 @@ public class UserService {
 
     public ResponseEntity<UserResponse> updateUser(String id, UserUpdateRequest dto)
     {
-        var user = userRepository.findById(id).orElseThrow();
+        var isChange = false;
+        var user = userRepository.findById(id).orElseThrow(
+                UserNotFoundException::new
+        );
 
         if(!dto.username().isEmpty())
         {
             if(userRepository.findByUsername(dto.username()).isPresent())
-                return ResponseEntity.badRequest().build();
+                throw new UserAlreadyExistException("User with username: " + dto.username() + " already exist");
             else
+            {
                 user.setUsername(dto.username());
+                isChange = true;
+            }
         }
 
         if(!dto.password().isEmpty())
+        {
             user.setPassword(dto.password());
+            isChange = true;
+        }
 
-        var save = userRepository.save(user);
+        var save = isChange ? userRepository.save(user) : user;
         var userResponse = userMapper.userToUserResponse(save);
 
         return ResponseEntity.ok(userResponse);

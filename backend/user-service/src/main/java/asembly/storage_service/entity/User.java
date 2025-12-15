@@ -1,4 +1,4 @@
-package asembly.user_service.entity;
+package asembly.storage_service.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

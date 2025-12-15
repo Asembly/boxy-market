@@ -26,3 +26,4 @@ feign:
         loggerLevel: basic
   service:
     storage-service: ${FEIGN_SERVICE_STORAGE}
+    user-service: ${FEIGN_SERVICE_USER}
