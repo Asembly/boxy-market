@@ -27,6 +27,20 @@
     </properties>
 
     <dependencies>
+
+        <!-- Spring Boot Context -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>6.1.11</version> <!-- Use the appropriate Spring Framework version -->
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>6.1.11</version> <!-- Use the appropriate Spring version -->
+            </dependency>
+        <!-- Spring Boot Context -->
+
         <!-- Validation -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -58,6 +72,16 @@
                 <optional>true</optional>
             </dependency>
         <!-- Tests -->
+
+
+        <!-- JWT -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>4.5.0</version>
+            </dependency>
+        <!-- JWT -->
+
     </dependencies>
 
 
