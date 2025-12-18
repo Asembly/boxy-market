@@ -1,5 +1,6 @@
-package asembly.storage_service.entity;
+package asembly.user_service.entity;
 
+import asembly.type.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -24,5 +26,6 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
+    private Collection<Role> roles;
     private LocalDateTime created_at;
 }

@@ -1,9 +1,9 @@
-package asembly.storage_service.controller;
+package asembly.user_service.controller;
 
 import asembly.dto.user.UserCreateRequest;
 import asembly.dto.user.UserResponse;
 import asembly.dto.user.UserUpdateRequest;
-import asembly.storage_service.service.UserService;
+import asembly.user_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
