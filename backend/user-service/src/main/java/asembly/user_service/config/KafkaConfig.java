@@ -1,4 +1,4 @@
-package asembly.user_service.config;
+package asembly.storage_service.config;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;

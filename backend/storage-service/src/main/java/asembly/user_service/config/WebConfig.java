@@ -1,4 +1,4 @@
-package asembly.user_service.config;
+package asembly.storage_service.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;

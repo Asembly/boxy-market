@@ -1,10 +1,10 @@
-package asembly.user_service;
+package asembly.storage_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class StorageApplicationTests {
+@SpringBootTest(classes = UserApplication.class)
+class UserApplicationTests {
 
 	@Test
 	void contextLoads() {

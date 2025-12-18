@@ -1,4 +1,4 @@
-package asembly.user_service.service;
+package asembly.storage_service.service;
 
 import asembly.exception.storage.StorageException;
 import lombok.extern.slf4j.Slf4j;

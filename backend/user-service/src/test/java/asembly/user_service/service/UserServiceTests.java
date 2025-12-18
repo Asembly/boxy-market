@@ -1,13 +1,13 @@
-package asembly.user_service.service;
+package asembly.storage_service.service;
 
 import asembly.dto.user.UserCreateRequest;
 import asembly.dto.user.UserResponse;
 import asembly.dto.user.UserUpdateRequest;
 import asembly.exception.user.UserAlreadyExistException;
 import asembly.exception.user.UserNotFoundException;
-import asembly.user_service.entity.User;
-import asembly.user_service.kafka.ProducerUser;
-import asembly.user_service.repository.UserRepository;
+import asembly.storage_service.entity.User;
+import asembly.storage_service.kafka.ProducerUser;
+import asembly.storage_service.repository.UserRepository;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
