@@ -1,6 +1,6 @@
-package asembly.storage_service.repository;
+package asembly.user_service.repository;
 
-import asembly.storage_service.entity.User;
+import asembly.user_service.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

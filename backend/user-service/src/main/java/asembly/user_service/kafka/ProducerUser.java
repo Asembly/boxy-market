@@ -1,4 +1,4 @@
-package asembly.storage_service.kafka;
+package asembly.user_service.kafka;
 
 import asembly.event.UserEvent;
 import asembly.event.types.UserEventType;

@@ -4,7 +4,6 @@ import asembly.dto.product.ProductCreateDto;
 import asembly.dto.product.ProductResponse;
 import asembly.dto.product.ProductUpdateDto;
 import asembly.exception.product.ProductNotFoundException;
-import asembly.exception.user.UserNotFoundException;
 import asembly.product_service.client.StorageClient;
 import asembly.product_service.client.UserClient;
 import asembly.product_service.entity.Product;
@@ -68,10 +67,10 @@ public class ProductService {
 
     public ResponseEntity<ProductResponse> createProduct(ProductCreateDto dto, MultipartFile[] images){
 
-        var user = userClient.getById(dto.user_id()).getBody();
+//        var user = userClient.getById(dto.user_id()).getBody();
 
-        if(user == null)
-            throw new UserNotFoundException();
+//        if(user == null)
+//            throw new UserNotFoundException();
 
         log.info("Files: {}", images.length);
 

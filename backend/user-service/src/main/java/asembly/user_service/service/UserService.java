@@ -1,4 +1,4 @@
-package asembly.storage_service.service;
+package asembly.user_service.service;
 
 import asembly.dto.user.UserCreateRequest;
 import asembly.dto.user.UserResponse;
@@ -7,10 +7,10 @@ import asembly.event.types.UserEventType;
 import asembly.exception.user.UserAlreadyExistException;
 import asembly.exception.user.UserNotFoundException;
 import asembly.type.Role;
-import asembly.storage_service.entity.User;
-import asembly.storage_service.kafka.ProducerUser;
-import asembly.storage_service.mapper.UserMapper;
-import asembly.storage_service.repository.UserRepository;
+import asembly.user_service.entity.User;
+import asembly.user_service.kafka.ProducerUser;
+import asembly.user_service.mapper.UserMapper;
+import asembly.user_service.repository.UserRepository;
 import asembly.utils.GeneratorId;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;

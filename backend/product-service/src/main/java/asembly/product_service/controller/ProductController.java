@@ -4,6 +4,7 @@ import asembly.dto.product.ProductCreateDto;
 import asembly.dto.product.ProductResponse;
 import asembly.dto.product.ProductUpdateDto;
 import asembly.product_service.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "product-service")
 public class ProductController {
@@ -41,7 +43,6 @@ public class ProductController {
 
     @PostMapping("/")
     public ResponseEntity<ProductResponse> createProduct(@RequestPart("data") ProductCreateDto dto,@RequestPart("images") MultipartFile[] images){
-
         return productService.createProduct(dto, images);
     }
 
