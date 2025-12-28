@@ -56,14 +56,14 @@ public class CartService {
     }
 
 
-    public ResponseEntity<CartResponse> addProduct(String id, String product_id){
+    public ResponseEntity<CartResponse> addProduct(String user_id, String product_id){
 
         //Find product by id, check empty or not
         var product = productClient.getProductById(product_id).getBody();
 
-        var cart = cartRepository.findById(id).orElseThrow(
-                CartNotFoundException::new
-        );
+        var cart = cartRepository.findCartByUserId(user_id).orElseThrow(
+                        CartNotFoundException::new
+                );
 
         cart.getProducts_id().add(product_id);
 

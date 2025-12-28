@@ -2,7 +2,6 @@ package asembly.product_service.service;
 
 import asembly.dto.product.ProductCreateDto;
 import asembly.dto.product.ProductUpdateDto;
-import asembly.dto.user.UserResponse;
 import asembly.product_service.client.StorageClient;
 import asembly.product_service.client.UserClient;
 import asembly.product_service.entity.Product;
@@ -79,13 +78,6 @@ public class ProductServiceTests {
                         "fake image content 2".getBytes()
                 )
         };
-
-        userResponse1 = UserResponse.builder()
-                .id("1")
-                .username("Asembly")
-                .created_at(LocalDateTime.now())
-                .build()
-        ;
 
         product = Product.builder()
                 .id("1")
@@ -166,7 +158,7 @@ public class ProductServiceTests {
         Mockito.when(storageClient.uploadImageFile(Mockito.any(MultipartFile.class)))
                 .thenReturn(ResponseEntity.ok(files[1].getOriginalFilename()));
 
-        Mockito.when(userClient.getById(createDto.user_id()))
+        Mockito.when(userClient.getUserById(createDto.user_id()))
                 .thenReturn(ResponseEntity.ok(Mockito.any()));
 
         Mockito.when(productRepository.save(Mockito.any(Product.class))).thenReturn(product);
