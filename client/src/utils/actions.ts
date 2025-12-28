@@ -1,6 +1,6 @@
 'use server'
 import api from "./config";
-import { Cart, Product, User } from "./types";
+import { Cart, Payment, Product, User } from "./types";
 
 export async function getUsers() {
   const response: User[] = await api.get(`/user-service/`)
@@ -16,6 +16,36 @@ export async function getUserById(user_id: String) {
     .then(res => res.data)
 
   return response
+}
+
+export async function createPayment(formData: FormData) {
+  const value = formData.get("value") as string
+  const currency = formData.get("currency") as string
+  const type = formData.get("type") as string
+  const return_url = formData.get("return_url") as string
+  const capture = formData.get("capture") as string
+  const description = formData.get("description") as string
+
+  const data = {
+    amount: {
+      value: value,
+      currency: currency
+    },
+    capture: capture,
+    confirmation: {
+      type: type,
+      return_url: return_url
+    },
+    description: description
+  }
+
+  const response: Payment = await api.post(`/payment-service/`, data)
+    .catch(e => e)
+    .then(res => res.data)
+
+  console.log(response)
+
+  response
 }
 
 export async function createProduct(formData: FormData) {
@@ -65,7 +95,13 @@ export async function getProducts() {
 }
 
 export async function getProductById(product_id: String) {
+  const response: Product = await api.get(`/product-service/get?id=${product_id}`)
+    .catch(e => e)
+    .then(res => res.data)
 
+  console.log(response)
+
+  return response
 }
 
 export async function getProductPhotoUrlById(product_id: String) {
@@ -98,8 +134,15 @@ export async function getCarts() {
 
 
 export async function getCartByUserId(user_id: String) {
+  const response: Cart = await api.get(`/cart-service/get/user?user_id=${user_id}`)
+    .catch(e => e)
+    .then(res => res.data)
 
+  console.log(response)
+
+  return response
 }
+
 
 export async function getPayments() {
 
