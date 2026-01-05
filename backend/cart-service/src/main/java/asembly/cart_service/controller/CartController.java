@@ -30,7 +30,13 @@ public class CartController {
         return cartService.getCartByUserId(user_id);
     }
 
-    @PostMapping("/add")
+    @PatchMapping("/remove")
+    public ResponseEntity<CartResponse> removeProduct(@RequestParam String user_id, @RequestParam String product_id)
+    {
+       return cartService.removeProduct(user_id, product_id);
+    }
+
+    @PatchMapping("/add")
     public ResponseEntity<CartResponse> addProduct(@RequestParam String user_id, @RequestParam String product_id) {
         return cartService.addProduct(user_id, product_id);
     }

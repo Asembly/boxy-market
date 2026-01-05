@@ -5,6 +5,7 @@ import asembly.cart_service.entity.Cart;
 import asembly.cart_service.mapper.CartMapper;
 import asembly.cart_service.repository.CartRepository;
 import asembly.dto.cart.CartResponse;
+import asembly.exception.cart.CartEmptyException;
 import asembly.exception.cart.CartNotFoundException;
 import asembly.utils.GeneratorId;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +56,19 @@ public class CartService {
         return ResponseEntity.ok(cartResponse);
     }
 
+    public ResponseEntity<CartResponse> removeProduct(String user_id, String product_id)
+    {
+        var cart = cartRepository.findCartByUserId(user_id).orElseThrow(
+                CartNotFoundException::new
+        );
+
+        cart.getProducts_id().remove(product_id);
+        var save = cartRepository.save(cart);
+
+        var cartResponse = cartMapper.cartToCartResponse(save);
+
+        return ResponseEntity.ok(cartResponse);
+    }
 
     public ResponseEntity<CartResponse> addProduct(String user_id, String product_id){
 
