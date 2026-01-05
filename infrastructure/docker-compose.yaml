@@ -30,7 +30,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     env_file:
-      - .env 
+      - .env
   user-service:
     build: ../backend/user-service
     ports:
@@ -43,7 +43,7 @@ services:
     environment:
       SPRING_JWT_SECRET: ${JWT_SECRET}
       SPRING_EUREKA_CLIENT_SERVICE-URL: ${EUREKA_URL}
-      SPRING_DATASOURCE_URL:  jdbc:postgresql://database:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
   cart-service:
@@ -85,6 +85,22 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+  auth-service:
+    build: ../backend/auth-service/
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../backend/auth-service/.env
+    depends_on:
+      - redis
+      - kafka
+      - database
+    environment:
+      SPRING_JWT_SECRET: ${JWT_SECRET}
+      SPRING_EUREKA_CLIENT_SERVICE-URL: ${EUREKA_URL}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
   payment-service:
     build: ../backend/payment-service
     ports:
@@ -100,4 +116,13 @@ services:
       SPRING_EUREKA_CLIENT_SERVICE-URL: ${EUREKA_URL}
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}   
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+  search:
+    image: elasticsearch:8.5.1
+    environment:
+      - xpack.security.http.ssl.enabled=false # ← Разрешить HTTP
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    ports:
+      - "9200:9200"

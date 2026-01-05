@@ -15,9 +15,8 @@ RUN for jar_file in /tmp/*.jar; do \
         -DgeneratePom=true; \
     done
 COPY . .
-RUN chmod +x mvnw
 RUN mvn clean install -DskipTests
-RUN ./mvnw -B package
+RUN mvn clean package -B
 
 
 FROM eclipse-temurin:17-jdk-jammy
