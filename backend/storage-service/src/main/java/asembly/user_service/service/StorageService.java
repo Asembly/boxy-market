@@ -103,9 +103,7 @@ public class StorageService {
             else
                 throw new StorageFileNotFoundException("Could not read the file: " + filename);
 
-        } catch (RuntimeException | MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);
         }
     }
