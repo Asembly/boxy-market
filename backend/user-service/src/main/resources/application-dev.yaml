@@ -10,5 +10,15 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME}
   kafka:
     bootstrap-servers: localhost:9092
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+    display-request-duration: true
+    default-model-expand-depth: 3
+    persist-authorization: true
 server:
   port: 8081

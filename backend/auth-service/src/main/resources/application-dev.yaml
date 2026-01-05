@@ -16,6 +16,16 @@ spring:
       expiration: 3600000
     refresh:
       expiration: 604800000
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+    display-request-duration: true
+    default-model-expand-depth: 3
+    persist-authorization: true
 server:
   port: 8080
 eureka:
