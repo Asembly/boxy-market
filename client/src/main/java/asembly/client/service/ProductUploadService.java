@@ -1,4 +1,4 @@
-package asembly.client.webclient;
+package asembly.client.service;
 
 import asembly.client.dto.UploadedFile;
 import asembly.dto.product.ProductCreateDto;

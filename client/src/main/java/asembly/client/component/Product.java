@@ -1,4 +1,4 @@
-package asembly.client.view;
+package asembly.client.component;
 
 import asembly.client.service.ImageService;
 import asembly.dto.product.ProductResponse;
@@ -9,20 +9,19 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 public class Product extends VerticalLayout {
 
-
-    private final ImageService imageService;
+    protected final ImageService imageService;
 
     private final String title;
     private final String description;
     private final Integer price;
 
-    private final H2 titleField;
-    private final Text descriptionField;
-    private final Text priceField;
+    protected final H2 titleField;
+    protected final Text descriptionField;
+    protected final Text priceField;
 
-    private final Div productContainer;
+    protected final Div productContainer;
 
-    private final ProductResponse product;
+    protected final ProductResponse product;
 
     public Product(
             ProductResponse product,
@@ -46,7 +45,7 @@ public class Product extends VerticalLayout {
         init();
     }
 
-    private void init()
+    protected void init()
     {
         productContainer.add(titleField);
         productContainer.add(descriptionField);
@@ -54,5 +53,7 @@ public class Product extends VerticalLayout {
                 imageService.loadImage(product.photos())
         );
         productContainer.add(priceField);
+
+        add(productContainer);
     }
 }

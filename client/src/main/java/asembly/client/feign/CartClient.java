@@ -1,19 +1,19 @@
 package asembly.client.feign;
 
-import asembly.dto.product.ProductCreateDto;
-import asembly.dto.product.ProductResponse;
+import asembly.dto.cart.CartResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+@FeignClient(name = "cart-client", url = "${feign.services}/cart-service")
+public interface CartClient {
 
-@FeignClient(name = "product-client", url = "${feign.services}/product-service")
-public interface ProductClient {
+    @PostMapping("/add")
+    public ResponseEntity<CartResponse> addProduct(@RequestParam String user_id, @RequestParam String product_id);
 
-    @GetMapping("/")
-    public ResponseEntity<List<ProductResponse>> getProducts();
+    @GetMapping("/get/user")
+    public ResponseEntity<CartResponse> getCartByUserId(@RequestParam String user_id);
+
 }
