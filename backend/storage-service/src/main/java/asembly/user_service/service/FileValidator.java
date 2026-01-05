@@ -20,7 +20,7 @@ public class FileValidator {
 
             //Check if the file contains an image type
             var contentType = file.getContentType();
-            return List.of("image/jpeg", "image/png").contains(contentType);
+            return List.of("image/jpeg", "image/png", "image/webp").contains(contentType);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }

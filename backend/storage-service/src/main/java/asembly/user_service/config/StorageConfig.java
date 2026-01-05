@@ -34,7 +34,7 @@ public class StorageConfig {
             log.info("Location: {}",location);
             rootDir = Paths.get(location).toAbsolutePath().normalize();
 
-            log.info(Paths.get(rootDir + "/images/").toString());
+            log.info("ROOT DIR: {}",rootDir);
 
             //Initialization folders
             Files.createDirectories(rootDir);
