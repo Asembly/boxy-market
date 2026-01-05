@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: client
+server:
+  port: 8090
+vaadin:
+  launch-browser: true
+feign:
+  services: http://localhost:9000
