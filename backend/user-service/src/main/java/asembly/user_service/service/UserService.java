@@ -79,6 +79,8 @@ public class UserService {
 
     public ResponseEntity<UserResponse> createUser(UserCreateRequest dto) {
 
+        log.info(dto.username());
+
         var optUser = userRepository.findByUsername(dto.username());
 
         if(optUser.isPresent())

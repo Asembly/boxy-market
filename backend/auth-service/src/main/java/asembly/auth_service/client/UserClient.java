@@ -17,6 +17,6 @@ public interface UserClient {
     ResponseEntity<UserResponse> getUserById(@RequestParam String id);
 
     @PostMapping("/")
-    ResponseEntity<UserResponse> create(@RequestBody UserCreateRequest dto);
+    public ResponseEntity<UserResponse> createUser(@RequestBody UserCreateRequest dto);
 
 }

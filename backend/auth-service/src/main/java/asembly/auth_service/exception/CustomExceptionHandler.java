@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 
 @Slf4j
-@RestControllerAdvice
+//@RestControllerAdvice
 public class CustomExceptionHandler {
 
     @ExceptionHandler

@@ -54,7 +54,7 @@ public class AuthService {
         if(dto.password().length() < 8)
             throw new RuntimeException("Password length is too short");
 
-        return userClient.create(new UserCreateRequest(
+        return userClient.createUser(new UserCreateRequest(
                 dto.username(),
                 passwordEncoder.encode(dto.password()))
         );

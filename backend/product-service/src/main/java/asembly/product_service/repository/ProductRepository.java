@@ -13,4 +13,8 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     @Query(value = "select * from products where user_id = :user_id", nativeQuery = true)
     Optional<List<Product>> findByUserId(String user_id);
+
+    @Query(value = "select * from products where title = :title", nativeQuery = true)
+    Optional<List<Product>> findByTitle(String title);
+
 }
