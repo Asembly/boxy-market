@@ -25,8 +25,9 @@ public class CartService {
     {
         Button remove = new Button(VaadinIcon.CLOSE.create());
         remove.addClickListener(event -> {
-            cartClient.
-        })
+            cartClient.removeProduct("1eff8d70", product_id);
+        });
+        return remove;
     }
 
 }

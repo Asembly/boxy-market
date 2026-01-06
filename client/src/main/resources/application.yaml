@@ -7,3 +7,5 @@ vaadin:
   launch-browser: true
 feign:
   services: http://localhost:9000
+  httpclient:
+    enabled: true
