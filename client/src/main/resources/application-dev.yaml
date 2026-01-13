@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: client
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+server:
+  port: 8090
+vaadin:
+  launch-browser: true
+feign:
+  services: ${FEIGN_BASE_URL}
+  httpclient:
+    enabled: true
